@@ -4,14 +4,20 @@ import { useLocation } from 'react-router-dom'
 
 import CourseBlock from 'components/CourseBlock'
 import Grid from 'components/Grid'
-import Menu from 'components/Menu'
+import MenuList from 'components/MenuList'
 
 import { ICourse, TCourses } from 'modules/course'
 
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { memo, useEffect, useMemo, useState } from 'react'
+
+interface IQuery {
+  tag?: string
+}
 
 const General = () => {
   const [courses, setCourses] = useState<TCourses>()
+  const location = useLocation()
+  const parseQuery: IQuery = useMemo(() => queryString.parse(location.search), [location])
 
   useEffect(() => {
     if (courses) return
@@ -22,21 +28,13 @@ const General = () => {
   })
 
   const tags = useMemo(() => {
-    let tagsSet = courses?.reduce((accumulator: Set<string>, course: ICourse) => {
+    const tagsSet = courses?.reduce((accumulator: Set<string>, course: ICourse) => {
       course.tags.forEach((tag) => accumulator.add(tag))
       return accumulator
     }, new Set<string>())
 
     return Array.from(tagsSet || [])
   }, [courses])
-
-  const location = useLocation()
-
-  interface IQuery {
-    tag?: string
-  }
-
-  const parseQuery: IQuery = queryString.parse(location.search)
 
   const activeTag = useMemo(() => {
     return parseQuery.tag && tags.includes(parseQuery?.tag?.toString() || '')
@@ -54,7 +52,7 @@ const General = () => {
 
   return (
     <article className="general">
-      <Menu {...{ activeTag, tags }} />
+      <MenuList {...{ activeTag, tags }} />
       <Grid>
         {displayCourses?.map(({ id, name, image, bgColor }) => {
           return <CourseBlock key={id} {...{ name, image, bgColor }} />
@@ -64,4 +62,4 @@ const General = () => {
   )
 }
 
-export default General
+export default memo(General)

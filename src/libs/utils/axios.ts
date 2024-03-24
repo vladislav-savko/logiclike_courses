@@ -1,13 +1,10 @@
 import axios from 'axios'
-
-const API = 'https://logiclike.com'
+import { API } from 'config'
 
 const instance = axios.create({
   baseURL: `${API}/docs`,
   headers: {
     'Accept-Language': 'ru-RU',
-    // 'Access-Control-Allow-Origin': '*',
-    // 'Cache-Control': 'no-cache',
     'Content-type': 'application/json',
   },
 })

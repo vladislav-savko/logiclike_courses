@@ -1,0 +1,13 @@
+@import '/src/styles/colors';
+
+.menu-list {
+  display: flex;
+  flex-direction: column;
+
+  height: min-content;
+  min-width: 264px;
+  padding: 12px;
+
+  border: 1px solid $gray;
+  border-radius: 18px;
+}

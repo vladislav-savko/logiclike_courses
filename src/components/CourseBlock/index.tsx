@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 import './index.scss'
 
@@ -20,4 +20,4 @@ const CourseBlock = ({ name, image, bgColor }: ICourseBlock) => {
   )
 }
 
-export default CourseBlock
+export default memo(CourseBlock)

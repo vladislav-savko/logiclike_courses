@@ -1,0 +1,8 @@
+.grid {
+  width: 100%;
+  height: fit-content;
+
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
